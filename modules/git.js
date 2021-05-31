@@ -31,7 +31,11 @@ export async function download_repos(octokit) {
         list: suggestions !== undefined,
     });
 
-    let repos = await get_repos(octokit, is_org, name, reg);
+    let repos = cache[name];
+
+    if (fetch_repos) {
+        repos = await get_repos(octokit, is_org, name, reg);
+    }
 
     const req = { name: "run" };
     const perm = await Deno.permissions.request(req);

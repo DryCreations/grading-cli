@@ -1,13 +1,13 @@
 import { Octokit } from "https://cdn.skypack.dev/octokit?dts";
 import { createOAuthDeviceAuth } from "https://cdn.skypack.dev/@octokit/auth-oauth-device?dts";
 
-export default async function() {
+export default async function(clientId) {
     const octokit = new Octokit({
         authStrategy: createOAuthDeviceAuth,
         auth: {
             clientType: "oauth-app",
-            clientId: Deno.env.get('GITHUB_CLIENT_ID'),
-            scopes: ["public_repo"],
+            clientId: clientId || Deno.env.get('GITHUB_CLIENT_ID'),
+            scopes: ["repo"],
             async onVerification (verification) {
                 // verification example
                 // {

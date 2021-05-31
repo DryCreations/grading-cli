@@ -2,6 +2,8 @@ import AuthFlow from "./modules/auth.js";
 
 import { Select } from "https://deno.land/x/cliffy/prompt/select.ts";
 import { config } from "https://deno.land/x/dotenv/mod.ts";
+import { Input } from "https://deno.land/x/cliffy/prompt/input.ts";
+import { parseFlags } from "https://deno.land/x/cliffy/flags/mod.ts";
 
 import { download_repos } from './modules/git.js';
 
@@ -18,6 +20,15 @@ if (perms_granted.some((v => v.state == "denied"))) {
 }
 
 config({ safe: true, export: true });
+let { flags } = parseFlags(Deno.args);
+let clientId = Deno.env.get('GITHUB_CLIENT_ID');
+clientId = clientId || flags.client
+
+if (!clientId) {
+    console.log('ENVIRONMENT VARIABLE `GITHUB_CLIENT_ID` MISSING');
+    clientId = await Input.prompt('What is the client ID for your github oauth app?')
+}
+
 let octokit;
 
 while(true) {
@@ -40,7 +51,7 @@ while(true) {
             disabled: false,
             name: 'Authenticate',
             action: async () => {
-                octokit = await AuthFlow();
+                octokit = await AuthFlow(clientId);
             }
         },
         'exit': {

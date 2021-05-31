@@ -1,5 +1,7 @@
 FROM ubuntu
 
+WORKDIR /grading
+
 RUN apt-get update \
 && apt-get -y install sudo \
 && apt-get -y install apt-utils  \
@@ -9,7 +11,9 @@ RUN apt-get update \
 
 RUN curl -fsSL https://deno.land/x/install/install.sh | sh
 
-ENV DENO_INSTALL="root/.deno"
+ENV DENO_INSTALL="/root/.deno"
 ENV PATH="$DENO_INSTALL/bin:$PATH"
 
-ADD . /src/
+COPY . .
+
+RUN deno cache --unstable --no-check mod.js
