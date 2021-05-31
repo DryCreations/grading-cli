@@ -1,5 +1,5 @@
 import { Octokit } from "https://cdn.skypack.dev/octokit?dts";
-import { createOAuthDeviceAuth } from "https://cdn.pika.dev/@octokit/auth-oauth-device";
+import { createOAuthDeviceAuth } from "https://cdn.skypack.dev/@octokit/auth-oauth-device?dts";
 
 export default async function() {
     const octokit = new Octokit({
