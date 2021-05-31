@@ -1,4 +1,4 @@
-import { Octokit } from "https://cdn.skypack.dev/@octokit/core?dts";
+import { Octokit } from "https://cdn.skypack.dev/octokit?dts";
 import { createOAuthDeviceAuth } from "https://cdn.skypack.dev/@octokit/auth-oauth-device?dts";
 
 export default async function() {
