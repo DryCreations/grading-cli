@@ -19,7 +19,7 @@ if (perms_granted.some((v => v.state == "denied"))) {
     Deno.exit();
 }
 
-config({ safe: true, export: true });
+config({ export: true });
 let { flags } = parseFlags(Deno.args);
 let clientId = Deno.env.get('GITHUB_CLIENT_ID');
 clientId = clientId || flags.client
