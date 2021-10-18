@@ -40,6 +40,8 @@ export async function download_repos(octokit) {
     const req = { name: "run" };
     const perm = await Deno.permissions.request(req);
 
+    const {token} = await octokit.auth({ type: "get" });
+
     if (perm.state == "granted") { 
         await Promise.all(repos.map(async (r) => {
             let dir_name = `./tmp/${r.full_name}`;
@@ -51,7 +53,7 @@ export async function download_repos(octokit) {
             await rm.status();
             
             const clone = Deno.run({
-                cmd: ["git", "clone", r.clone_url, dir_name]
+                cmd: ["git", "clone", r.clone_url.replace('https://', 'https://' + token + '@'), dir_name]
             })
             
             return clone.status();
