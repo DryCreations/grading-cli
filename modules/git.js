@@ -67,7 +67,7 @@ export async function download_repos(octokit) {
     return repos;
 }
 
-export async function delete_repos(octokit) {
+export async function delete_repos() {
     let options = {
         'all': {
             disabled: false,

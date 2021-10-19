@@ -41,10 +41,10 @@ while(true) {
             }
         },
         'delete': {
-            disabled: octokit === undefined,
+            disabled: false,
             name: 'Delete Repositories',
             action: async () => {
-                await delete_repos(octokit);
+                await delete_repos();
             }
         },
         'auth': {
