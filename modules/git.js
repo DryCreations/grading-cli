@@ -68,12 +68,67 @@ export async function download_repos(octokit) {
 }
 
 export async function delete_repos(octokit) {
+    let options = {
+        'all': {
+            disabled: false,
+            name: 'Delete All Local Repos',
+            action: async () => {
+                const req = { name: "run" };
+                const perm = await Deno.permissions.request(req);
 
+                if (perm.state == "granted") {
+                    
+                    let dir_name = `./tmp`;
+        
+                    const rm = Deno.run({
+                        cmd: ["rm", "-rf", dir_name]
+                    })
+
+                    await rm.status();
+
+                    await Deno.permissions.revoke(req)
+                }
+            }
+        },
+        'folder': {
+            disabled: false,
+            name: 'Delete Folder',
+            action: async () => {
+                console.log('delete folder');
+                const dir = await Input.prompt({
+                    message: `What folder would you like to delete (org/user name)?`
+                });
+
+                const req = { name: "run" };
+                const perm = await Deno.permissions.request(req);
+
+                if (perm.state == "granted") {
+                    
+                    let dir_name = `./tmp/${dir}`;
+        
+                    const rm = Deno.run({
+                        cmd: ["rm", "-rf", dir_name]
+                    })
+
+                    await rm.status();
+
+                    await Deno.permissions.revoke(req)
+                }
+            }
+        }
+    }
+    
+    const choice = await Select.prompt({
+        message: "What would you like to do?",
+        options: Object.entries(options).map(([value, {name, disabled}]) => {
+            return {value, name, disabled}
+        }),
+    });
+    
+    await options[choice].action();
 }
 
 async function get_repos(octokit, is_org, name, reg) {
-    let err;
-
     let repos = await octokit.paginate(`GET /${is_org ? `orgs` : `users` }/{owner}/repos`, {
         owner: name,
         per_page: 100

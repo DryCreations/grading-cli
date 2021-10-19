@@ -5,7 +5,7 @@ import { config } from "https://deno.land/x/dotenv/mod.ts";
 import { Input } from "https://deno.land/x/cliffy/prompt/input.ts";
 import { parseFlags } from "https://deno.land/x/cliffy/flags/mod.ts";
 
-import { download_repos } from './modules/git.js';
+import { delete_repos, download_repos } from './modules/git.js';
 
 const read_perm = Deno.permissions.request({ name: "read", path: "." })
 const github_perm = Deno.permissions.request({name: "net", host: 'github.com'});
@@ -44,7 +44,7 @@ while(true) {
             disabled: octokit === undefined,
             name: 'Delete Repositories',
             action: async () => {
-                console.log('start grading')
+                await delete_repos(octokit);
             }
         },
         'auth': {
