@@ -1,0 +1,38 @@
+{
+    "title": "Assignment Title",
+    "assignment_repo": "org/repo",
+    "tests": [
+        {
+            "name": "Test #1",
+            "setup": [
+                [""],
+                [""]
+            ],
+            "run": [
+                [""],
+                [""]
+            ],
+            "input": "",
+            "grader": "teacher",
+            "comparison": "exact",
+            "timeout": 1,
+            "points": 10
+        },
+        {
+            "name": "Test #2",
+            "setup": [
+                [""],
+                [""]
+            ],
+            "run": [
+                [""],
+                [""]
+            ],
+            "input": "",
+            "grader": "teacher",
+            "comparison": "exact",
+            "timeout": 1,
+            "points": 10
+        }
+    ]
+}
