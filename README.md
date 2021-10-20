@@ -1,10 +1,8 @@
 # Grading CLI
 
 ```sh
-deno run --unstable --no-check --location https://localhost mod.js
+deno run --unstable --no-check mod.js
 ```
-
-`--location https://localhost` is required to stop an error from `cliffy` calling location.
 
 This will create and modify files in `./tmp/`
 
@@ -18,8 +16,6 @@ I suggest using gvisor to create sandboxed environments for grading, this will s
 
 ```
 docker build -t grading .
-```
-
-```
 docker run --runtime=runsc --rm -it grading
+deno run -A --unstable --no-check mod.js
 ```

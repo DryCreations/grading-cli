@@ -47,11 +47,32 @@ while(true) {
                 await delete_repos();
             }
         },
+        'grade': {
+            disabled: false,
+            name: 'Grade Assignment',
+            action: async () => {
+                console.log('grade assignment');
+            }
+        },
+        'test': {
+            disabled: false,
+            name: 'Run Tests',
+            action: async () => {
+                console.log('run tests');
+            }
+        },
         'auth': {
             disabled: false,
             name: 'Authenticate',
             action: async () => {
                 octokit = await AuthFlow(clientId);
+            }
+        },
+        'archive': {
+            disabled: false,
+            name: 'Archive',
+            action: async () => {
+                console.log('archive classroom');
             }
         },
         'exit': {
