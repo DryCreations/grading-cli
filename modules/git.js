@@ -44,7 +44,7 @@ export async function download_repos(octokit) {
 
     if (perm.state == "granted") { 
         await Promise.all(repos.map(async (r) => {
-            let dir_name = `./tmp/${r.full_name}`;
+            let dir_name = `./tmp/repos/${r.full_name}`;
 
             const rm = Deno.run({
                 cmd: ["rm", "-rf", dir_name]
@@ -78,7 +78,7 @@ export async function delete_repos() {
 
                 if (perm.state == "granted") {
                     
-                    let dir_name = `./tmp`;
+                    let dir_name = `./tmp/repos`;
         
                     const rm = Deno.run({
                         cmd: ["rm", "-rf", dir_name]
@@ -104,7 +104,7 @@ export async function delete_repos() {
 
                 if (perm.state == "granted") {
                     
-                    let dir_name = `./tmp/${dir}`;
+                    let dir_name = `./tmp/repos/${dir}`;
         
                     const rm = Deno.run({
                         cmd: ["rm", "-rf", dir_name]
