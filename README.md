@@ -19,3 +19,5 @@ docker build -t grading .
 docker run --runtime=runsc --rm -it grading
 deno run -A --unstable --no-check mod.js
 ```
+
+the `/data/` folder is optional and should contain any rosters and grades exports from github classroom you plan on using during the grading process.

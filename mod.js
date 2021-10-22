@@ -1,9 +1,12 @@
-import AuthFlow from "./modules/auth.js";
+import auth_flow from "./modules/auth.js";
+import grade_flow from "./modules/grade.js";
 
 import { Select } from "https://deno.land/x/cliffy/prompt/select.ts";
 import { config } from "https://deno.land/x/dotenv/mod.ts";
 import { Input } from "https://deno.land/x/cliffy/prompt/input.ts";
 import { parseFlags } from "https://deno.land/x/cliffy/flags/mod.ts";
+
+import {exists} from "https://deno.land/std/fs/mod.ts"
 
 import { delete_repos, download_repos } from './modules/git.js';
 
@@ -32,6 +35,9 @@ if (!clientId) {
 let octokit;
 
 while(true) {
+
+    let repos_dir_exists = await exists("./tmp/repos/");
+
     let options = {
         'download': {
             disabled: octokit === undefined,
@@ -41,38 +47,31 @@ while(true) {
             }
         },
         'delete': {
-            disabled: false,
+            disabled: !repos_dir_exists,
             name: 'Delete Repositories',
             action: async () => {
                 await delete_repos();
             }
         },
         'grade': {
-            disabled: false,
+            disabled: octokit === undefined,
             name: 'Grade Assignment',
             action: async () => {
-                console.log('grade assignment');
+                await grade_flow(octokit);
             }
         },
-        'test': {
-            disabled: false,
-            name: 'Run Tests',
+        'archive': {
+            disabled: octokit === undefined,
+            name: 'Archive',
             action: async () => {
-                console.log('run tests');
+                console.log('archive classroom');
             }
         },
         'auth': {
             disabled: false,
             name: 'Authenticate',
             action: async () => {
-                octokit = await AuthFlow(clientId);
-            }
-        },
-        'archive': {
-            disabled: false,
-            name: 'Archive',
-            action: async () => {
-                console.log('archive classroom');
+                octokit = await auth_flow(clientId);
             }
         },
         'exit': {
