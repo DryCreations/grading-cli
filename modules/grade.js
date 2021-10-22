@@ -1,5 +1,52 @@
+
+
 export default async function(octokit) {
     console.log("Start Grading");
+
+    let csv;
+    let grader;
+    let repos;
+
+    let options = {
+        'csv': {
+            disabled: false,
+            name: 'Select CSV',
+            action: async () => {
+                console.log('Select CSV');
+            }
+        },
+        'grader': {
+            disabled: false,
+            name: 'Select Grader',
+            action: async () => {
+                console.log('Select Grader');
+            }
+        },
+        'repos': {
+            disabled: false,
+            name: 'Select repos',
+            action: async () => {
+                console.log('Select repos');
+            }
+        },
+        'start': {
+            disabled: false,
+            name: 'Start Grading',
+            action: async () => {
+                console.log('Start Grading');
+            }
+        },
+    }
+    
+    const choice = await Select.prompt({
+        message: "What would you like to do?",
+        options: Object.entries(options).map(([value, {name, disabled}]) => {
+            return {value, name, disabled}
+        }),
+    });
+
+    await options[choice].action();
+
     /*
 
     Select CSV (Hold State) (Optional, will set select repos)
