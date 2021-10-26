@@ -14,6 +14,10 @@ RUN curl -fsSL https://deno.land/x/install/install.sh | sh
 ENV DENO_INSTALL="/root/.deno"
 ENV PATH="$DENO_INSTALL/bin:$PATH"
 
-COPY . .
+COPY ./mod.js ./mod.js
+COPY ./modules ./modules
+COPY ./.env ./.env
 
 RUN deno cache --unstable --no-check mod.js
+
+COPY ./data ./data
