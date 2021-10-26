@@ -128,7 +128,7 @@ export async function delete_repos() {
     await options[choice].action();
 }
 
-async function get_repos(octokit, is_org, name, reg) {
+export async function get_repos(octokit, is_org, name, reg) {
     let repos = await octokit.paginate(`GET /${is_org ? `orgs` : `users` }/{owner}/repos`, {
         owner: name,
         per_page: 100
