@@ -2,12 +2,16 @@ FROM ubuntu:latest
 
 WORKDIR /grading
 
+ENV TZ=America/New_York
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 RUN apt-get update \
 && apt-get -y install sudo \
 && apt-get -y install apt-utils  \
 && apt-get -y install curl \
 && apt-get -y install unzip \
-&& apt-get -y install git
+&& apt-get -y install git \
+&& apt-get -y install default-jdk
 
 RUN curl -fsSL https://deno.land/x/install/install.sh | sh
 
