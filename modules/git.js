@@ -59,7 +59,7 @@ export async function download_repos(octokit) {
             return clone.status();
         }))
 
-        await Deno.permissions.revoke(req)
+        // await Deno.permissions.revoke(req)
     } else {
         console.log('failed to download -- please grant permissions to run scripts')
     }
@@ -86,7 +86,7 @@ export async function delete_repos() {
 
                     await rm.status();
 
-                    await Deno.permissions.revoke(req)
+                    // await Deno.permissions.revoke(req)
                 }
             }
         },
@@ -112,7 +112,7 @@ export async function delete_repos() {
 
                     await rm.status();
 
-                    await Deno.permissions.revoke(req)
+                    // await Deno.permissions.revoke(req)
                 }
             }
         }

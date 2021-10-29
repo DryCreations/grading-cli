@@ -182,7 +182,7 @@ async function get_grader_repo(octokit) {
         
         await clone.status();
 
-        await Deno.permissions.revoke(req)
+        // await Deno.permissions.revoke(req)
     } else {
         console.log('failed to download -- please grant permissions to run scripts')
         return undefined;
@@ -200,7 +200,7 @@ async function start_grading(octokit, csv, repos, grader) {
     const {token} = await octokit.auth({ type: "get" });
     if (perm.state == "granted") { 
         let dir = `${grader}/${grading_info.grader}`;
-        for (let s of grading_info.setup) {    
+        for (let s of grading_info.setup) { 
             const c = Deno.run({
                 cwd: dir,
                 cmd: ["bash", "-c", s]
